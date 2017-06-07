@@ -19,7 +19,7 @@ import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
 import { AuthProvider } from '../providers/firebase/auth';
 import { AlertUtil } from '../util/alert-util';
 
-import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -71,7 +71,7 @@ const FIREBASECONFIG = {
     SplashScreen,
     AuthProvider,
     DatabaseProvider,
-    Geolocation,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

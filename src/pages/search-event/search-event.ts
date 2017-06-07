@@ -25,7 +25,4 @@ export class SearchEventPage {
     console.log('ionViewDidLoad SearchEventPage');
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
 }

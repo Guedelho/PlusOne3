@@ -1,7 +1,13 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
-import { Geolocation } from '@ionic-native/geolocation';
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ CameraPosition,
+ LatLng
+} from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
 /**
@@ -10,8 +16,6 @@ import { SearchEventPage } from '../search-event/search-event';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-declare var google; 
-
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -19,46 +23,56 @@ declare var google;
 })
 export class HomePage {
 
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  myMarker: any;
+  element: HTMLElement;
+  map: GoogleMap;
 
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
     public navParams: NavParams,
-    private geolocation: Geolocation
+    public platform: Platform,
+    public googleMaps: GoogleMaps
   ) {
-
+    this.platform.ready().then(() =>{
+      this.loadMap();
+    })
   }
 
-  ionViewDidLoad(){
-    this.loadMap();
-  }
- 
-  loadMap(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
-        center: new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude),
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+  loadMap() {
+    this.element = document.getElementById('map');
+    this.map = this.googleMaps.create(this.element);
+
+    this.map.setOptions({
+      'backgroundColor': 'white',
+      'controls': {
+        'compass': false,
+        'myLocationButton': false,
+        'indoorPicker': false,
+        'zoom': false
+      }
+    });
+
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
+        this.getMyLocation().then((data) =>{
+          this.map.addMarker({
+            position: data,
+            title: 'Eu'
+          });
+        });
       });
-
-      this.myMarker = new google.maps.Marker({
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        position: this.map.getCenter()
-      });  
-    }).catch((error) => {
-      console.log('Error getting location', error);
     });
   }
 
   getMyLocation(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.map.setCenter(new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude)); 
-    }).catch((error) => {
-      console.log('Error getting location', error);
+    return this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
+      let myLocation: LatLng = data.latLng;
+      let position: CameraPosition = {
+        target: myLocation,
+        zoom: 18,
+        tilt: 30
+      }
+      this.map.moveCamera(position);
+      return myLocation;
     });
   }
 
@@ -67,7 +81,6 @@ export class HomePage {
   }
 
   search(){
-    let profileModal = this.modalCtrl.create(SearchEventPage);
-    profileModal.present();
+    this.navCtrl.push(SearchEventPage);
   }
 }

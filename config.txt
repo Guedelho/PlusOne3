@@ -1,0 +1,4 @@
+npm install firebase angularfire2 --save
+npm install @ionic/cli-plugin-cordova --save
+npm install @ionic-native/google-maps --save
+ionic cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyBOGNRuFCms9jnNvM9QoIlKpn21gVta8fs"
