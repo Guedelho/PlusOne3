@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import {
  GoogleMaps,
  GoogleMap,
- GoogleMapsEvent,
  CameraPosition,
  LatLng
 } from '@ionic-native/google-maps';
@@ -39,28 +38,18 @@ export class HomePage {
 
   loadMap() {
     this.element = document.getElementById('map');
-    this.map = this.googleMaps.create(this.element);
-
-    this.map.setOptions({
-      'backgroundColor': 'white',
-      'controls': {
-        'compass': false,
-        'myLocationButton': false,
-        'indoorPicker': false,
-        'zoom': false
+    let mapOptions = {
+      backgroundColor: 'white',
+      controls: {
+        compass: false,
+        myLocationButton: true,
+        indoorPicker: false,
+        zoom: false
       }
-    });
+    };
+    this.map = this.googleMaps.create(this.element, mapOptions);
 
-    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
-        this.getMyLocation().then((data) =>{
-          this.map.addMarker({
-            position: data,
-            title: 'Eu'
-          });
-        });
-      });
-    });
+    this.getMyLocation();
   }
 
   getMyLocation(){
@@ -68,8 +57,7 @@ export class HomePage {
       let myLocation: LatLng = data.latLng;
       let position: CameraPosition = {
         target: myLocation,
-        zoom: 18,
-        tilt: 30
+        zoom: 16
       }
       this.map.moveCamera(position);
       return myLocation;
