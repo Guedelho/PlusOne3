@@ -22,12 +22,6 @@ GRAY='\033[1;30m'
 WHITE='\033[1;37m'
 NC='\033[0m' #No Color
 
-#Check if the SO is Linux and change to SU to install dependencies
-SO=$(uname -a)
-if [[ $SO == *"Linux"* ]]; then
-  su
-fi
-
 #NPM
 echo -e "${WHITE}Preparing NPM Packages..."
 npm -s install && echo -e "${GRAY}NPM packages install :: ${GREEN}OK" || echo -e "${GRAY}NPM packages install :: ${RED}ERROR"
@@ -40,7 +34,6 @@ npm -s install firebase angularfire2 --save && echo -e "${GRAY}firebase angularf
 echo -e "${WHITE}Preparing Ionic Dependencies..."
 ionic cordova plugin add cordova-plugin-geolocation && echo -e "${GRAY}cordova-plugin-geolocation install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-geolocation install :: ${RED}ERROR"
 ionic cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyBOGNRuFCms9jnNvM9QoIlKpn21gVta8fs" && echo -e "${GRAY}cordova-plugin-googlemaps install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-googlemaps install :: ${RED}ERROR"
-
 
 #End
 echo -e "${WHITE}We are done here!"

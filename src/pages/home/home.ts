@@ -25,6 +25,7 @@ export class HomePage {
 
   element: HTMLElement;
   map: GoogleMap;
+  isCreating: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -34,7 +35,8 @@ export class HomePage {
   ) {
     this.platform.ready().then(() =>{
       this.loadMap();
-    })
+    });
+    this.isCreating = false;
   }
 
   loadMap() {
@@ -50,8 +52,8 @@ export class HomePage {
     };
     this.map = this.googleMaps.create(this.element, mapOptions);
 
-    this.getMyLocation().then((data) => {
-      console.log('center changed :: ', data);
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.getMyLocation();
     });
   }
 
@@ -67,8 +69,14 @@ export class HomePage {
     });
   }
 
-  test(){
-    alert(1);
+  createEvent(){
+    this.isCreating = true;
+  }
+
+  setEventLocation(){
+    this.map.getCameraPosition().then((cameraPosition: CameraPosition) => {
+      alert(cameraPosition.target);
+    });
   }
 
   search(){
