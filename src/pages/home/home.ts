@@ -5,7 +5,8 @@ import {
  GoogleMaps,
  GoogleMap,
  CameraPosition,
- LatLng
+ LatLng,
+ GoogleMapsEvent
 } from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
@@ -49,7 +50,9 @@ export class HomePage {
     };
     this.map = this.googleMaps.create(this.element, mapOptions);
 
-    this.getMyLocation();
+    this.getMyLocation().then((data) => {
+      console.log('center changed :: ', data);
+    });
   }
 
   getMyLocation(){
