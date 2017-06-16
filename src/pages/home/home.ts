@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent } from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
+import { CreateEventPage } from '../create-event/create-event';
 /**
  * Generated class for the HomePage page.
  *
@@ -64,7 +65,7 @@ export class HomePage {
 
   createEvent(){
     this.map.getCameraPosition().then((data) => {
-      alert(data.target);
+      this.navCtrl.push(CreateEventPage, {target: data.target});
     });
   }
 

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { LatLng } from '@ionic-native/google-maps';
+
 /**
  * Generated class for the CreateEventPage page.
  *
@@ -14,7 +17,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CreateEventPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  target: LatLng;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams
+  ) {
+    this.target = this.navParams.get('target');
+    console.log(this.target.lat);
+    console.log(this.target.lng);
+  }
+
+  getImage(){
+    console.log('teste');
   }
 
   ionViewDidLoad() {

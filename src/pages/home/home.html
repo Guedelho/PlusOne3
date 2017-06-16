@@ -4,28 +4,15 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header [hidden]="!isCreating">
-  <ion-navbar>
-    <ion-buttons left>
-      <button ion-button large (click)="togglePage()"><ion-icon name="arrow-back"></ion-icon></button>
-    </ion-buttons>
-    <ion-title>Local do evento</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
   <div #map id="map">
-
-    <button [hidden]="isCreating" ion-button menuToggle id="btn-menu" clear color="dark">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-
-    <ion-fab [hidden]="isCreating" bottom center>
-      <button ion-fab (click)="togglePage()"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
-
-    <div class="search" [hidden]="isCreating" (click)="search()">
-      <input #input id="input" class="controls" type="text" placeholder="Pesquise um lugar ou evento...">
+    <div [hidden]="!isCreating">
+      <ion-navbar>
+        <ion-buttons left>
+          <button ion-button large (click)="togglePage()"><ion-icon name="arrow-back"></ion-icon></button>
+        </ion-buttons>
+        <ion-title>Local do evento</ion-title>
+      </ion-navbar>
     </div>
 
     <button [hidden]="!isCreating" class="pin" ion-button icon-only clear>
@@ -35,5 +22,17 @@
     <ion-fab [hidden]="!isCreating" bottom center>
       <button ion-fab (click)="createEvent()"><ion-icon name="checkmark"></ion-icon></button>
     </ion-fab>
+
+    <button [hidden]="isCreating" ion-button menuToggle id="btn-menu" clear color="dark">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-fab [hidden]="isCreating" bottom center>
+      <button ion-fab (click)="togglePage()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+    <div [hidden]="isCreating" class="search" (click)="search()">
+      <input #input id="input" class="controls" type="text" placeholder="Pesquise um lugar ou evento...">
+    </div>
   </div>
 </ion-content>
