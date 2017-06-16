@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
-import {
- GoogleMaps,
- GoogleMap,
- GoogleMapsEvent,
- CameraPosition,
- LatLng
-} from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent } from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
 /**
@@ -25,6 +19,7 @@ export class HomePage {
 
   element: HTMLElement;
   map: GoogleMap;
+  isCreating: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -34,50 +29,43 @@ export class HomePage {
   ) {
     this.platform.ready().then(() =>{
       this.loadMap();
-    })
+    });
   }
 
   loadMap() {
     this.element = document.getElementById('map');
-    this.map = this.googleMaps.create(this.element);
-
-    this.map.setOptions({
-      'backgroundColor': 'white',
-      'controls': {
-        'compass': false,
-        'myLocationButton': false,
-        'indoorPicker': false,
-        'zoom': false
+    this.map = this.googleMaps.create(this.element, {
+      backgroundColor: 'white',
+      controls: {
+        compass: false,
+        myLocationButton: true,
+        indoorPicker: false,
+        zoom: false
       }
     });
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
-        this.getMyLocation().then((data) =>{
-          this.map.addMarker({
-            position: data,
-            title: 'Eu'
-          });
-        });
-      });
+      this.getMyLocation();
     });
   }
 
   getMyLocation(){
-    return this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
-      let myLocation: LatLng = data.latLng;
-      let position: CameraPosition = {
-        target: myLocation,
-        zoom: 18,
-        tilt: 30
-      }
-      this.map.moveCamera(position);
-      return myLocation;
+    this.map.getMyLocation({enableHighAccuracy: true}).then((data) => {
+      this.map.moveCamera({
+        target: data.latLng,
+        zoom: 16
+      });
     });
   }
 
-  test(){
-    alert(1);
+  togglePage(){
+    this.isCreating = !this.isCreating;
+  }
+
+  createEvent(){
+    this.map.getCameraPosition().then((data) => {
+      alert(data.target);
+    });
   }
 
   search(){

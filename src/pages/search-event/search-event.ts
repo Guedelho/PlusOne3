@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
@@ -14,6 +14,8 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class SearchEventPage {
 
+  @ViewChild('input') input;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -23,6 +25,9 @@ export class SearchEventPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchEventPage');
+    setTimeout(() =>{
+      this.input.setFocus();
+    }, 500)
   }
 
 }

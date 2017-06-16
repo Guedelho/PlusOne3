@@ -53,5 +53,12 @@ page-home {
     }
     .gmnoprint{
         display: none;
-    } 
+    }
+    .pin{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -18px;
+    }
 }
