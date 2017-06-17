@@ -15,8 +15,10 @@
 
 <ion-content padding>
   <ion-item>
-    <img [src]="imgDataUrl" *ngIf="imgDataUrl"/>
-    <button (click)="getImage()">Take photo</button>
+    <div class="img" *ngIf="imgDataUrl">
+      <img [src]="imgDataUrl"/>
+    </div>
+    <button ion-button full (click)="getImage()">Escolha uma imagem</button>
   </ion-item>
   <ion-item>
     <ion-label floating>Nome</ion-label>
@@ -56,6 +58,6 @@
   </ion-item>
 
   <ion-item>
-    <button ion-button full (click)="forgetPassword()">Criar Evento</button>
+    <button ion-button full (click)="createEvent()">Criar Evento</button>
   </ion-item>
 </ion-content>

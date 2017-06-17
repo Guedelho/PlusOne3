@@ -26,8 +26,6 @@ export class CreateEventPage {
     public camera: Camera
   ) {
     this.target = this.navParams.get('target');
-    console.log(this.target.lat);
-    console.log(this.target.lng);
   }
 
   getImage(){
@@ -38,10 +36,14 @@ export class CreateEventPage {
       mediaType: this.camera.MediaType.PICTURE,
     }).then((imageData) => {
       this.imgDataUrl = 'data:image/jpeg;base64,' + imageData;
-      console.log(this.imgDataUrl);
     }, (err) => {
       // Handle error
     });
+  }
+
+  createEvent(){
+    console.log('criado');
+    this.navCtrl.popToRoot();
   }
 
   ionViewDidLoad() {
