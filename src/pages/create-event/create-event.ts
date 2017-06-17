@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LatLng } from '@ionic-native/google-maps';
+import { FirebaseListObservable } from "angularfire2/database";
 
 /**
  * Generated class for the CreateEventPage page.
@@ -17,19 +18,29 @@ import { LatLng } from '@ionic-native/google-maps';
 })
 export class CreateEventPage {
 
-  target: LatLng;
+  event = {
+    name: '',
+    description: '',
+    epoch: '',
+    latlng: '',
+    address: ''
+  };
+  events: FirebaseListObservable<any[]>;
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
   ) {
-    this.target = this.navParams.get('target');
-    console.log(this.target.lat);
-    console.log(this.target.lng);
+    this.event.latlng = this.navParams.get('target');
+    this.events = this.navParams.get('events');
   }
 
   getImage(){
     console.log('teste');
+  }
+
+  createEvent(){
+    this.events.push(this.event);
   }
 
   ionViewDidLoad() {

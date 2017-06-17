@@ -1,3 +1,4 @@
+import { DatabaseProvider } from './../../providers/firebase/database';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
@@ -5,6 +6,7 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent } from '@ionic-native/google-map
 
 import { SearchEventPage } from '../search-event/search-event';
 import { CreateEventPage } from '../create-event/create-event';
+import { FirebaseListObservable } from "angularfire2/database";
 /**
  * Generated class for the HomePage page.
  *
@@ -21,14 +23,17 @@ export class HomePage {
   element: HTMLElement;
   map: GoogleMap;
   isCreating: boolean = false;
+  events: FirebaseListObservable<any[]>
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public platform: Platform,
-    public googleMaps: GoogleMaps
+    public googleMaps: GoogleMaps,
+    private _afDb: DatabaseProvider
   ) {
     this.platform.ready().then(() =>{
+      this.events = _afDb.getEvents();
       this.loadMap();
     });
   }
@@ -65,7 +70,7 @@ export class HomePage {
 
   createEvent(){
     this.map.getCameraPosition().then((data) => {
-      this.navCtrl.push(CreateEventPage, {target: data.target});
+      this.navCtrl.push(CreateEventPage, {target: data.target, events: this.events});
     });
   }
 

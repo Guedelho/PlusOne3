@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+// import * as firebase from 'firebase/app';
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -10,9 +12,15 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class DatabaseProvider {
+  private events: FirebaseListObservable<any[]>
+  afDb: AngularFireDatabase;
 
-  constructor(public http: Http) {
-    console.log('Hello DatabaseProvider Provider');
+  constructor(afDb: AngularFireDatabase) {
+   this.events = afDb.list('/events');
+  }
+
+  getEvents(): FirebaseListObservable<any[]>{
+    return this.events;
   }
 
 }
