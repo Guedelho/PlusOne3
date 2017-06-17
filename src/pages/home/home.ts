@@ -70,6 +70,7 @@ export class HomePage {
 
   createEvent(){
     this.map.getCameraPosition().then((data) => {
+      this.togglePage();  
       this.navCtrl.push(CreateEventPage, {target: data.target, events: this.events});
     });
   }

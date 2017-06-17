@@ -15,6 +15,7 @@
 
 <ion-content padding>
   <ion-item>
+    <img [src]="imgDataUrl" *ngIf="imgDataUrl"/>
     <button (click)="getImage()">Take photo</button>
   </ion-item>
   <ion-item>
@@ -52,5 +53,9 @@
       <ion-option>Pepperoni</ion-option>
       <ion-option>Sausage</ion-option>
     </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <button ion-button full (click)="forgetPassword()">Criar Evento</button>
   </ion-item>
 </ion-content>
