@@ -20,6 +20,7 @@ import { AuthProvider } from '../providers/firebase/auth';
 import { AlertUtil } from '../util/alert-util';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { Camera } from '@ionic-native/camera';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -72,6 +73,7 @@ const FIREBASECONFIG = {
     AuthProvider,
     DatabaseProvider,
     GoogleMaps,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

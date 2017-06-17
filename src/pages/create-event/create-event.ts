@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { LatLng } from '@ionic-native/google-maps';
 
 /**
@@ -18,10 +18,12 @@ import { LatLng } from '@ionic-native/google-maps';
 export class CreateEventPage {
 
   target: LatLng;
+  imgDataUrl: string;
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    public camera: Camera
   ) {
     this.target = this.navParams.get('target');
     console.log(this.target.lat);
@@ -29,7 +31,17 @@ export class CreateEventPage {
   }
 
   getImage(){
-    console.log('teste');
+    this.camera.getPicture({
+      sourceType: 0,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+    }).then((imageData) => {
+      this.imgDataUrl = 'data:image/jpeg;base64,' + imageData;
+      console.log(this.imgDataUrl);
+    }, (err) => {
+      // Handle error
+    });
   }
 
   ionViewDidLoad() {
