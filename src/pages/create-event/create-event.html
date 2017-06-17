@@ -20,32 +20,32 @@
   </ion-item>
   <ion-item>
     <ion-label floating>Nome</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="event.name" type="text"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Descrição</ion-label>
-    <ion-textarea></ion-textarea>
+    <ion-textarea [(ngModel)]="event.description"></ion-textarea>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Data</ion-label>
-    <ion-datetime displayFormat="DD MM YYYY"></ion-datetime>
+    <ion-datetime [(ngModel)]="date" displayFormat="DD MM YYYY"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Hora</ion-label>
-    <ion-datetime displayFormat="HH mm"></ion-datetime>
+    <ion-datetime [(ngModel)]="time" displayFormat="HH mm"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Local</ion-label>
-    <ion-input type="text" disabled></ion-input>
+    <ion-input [(ngModel)]="event.address" type="text" disabled></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Tipo</ion-label>
-    <ion-select>
+    <ion-select [(ngModel)]="event.type">
       <ion-option>Bacon</ion-option>
       <ion-option>Black Olives</ion-option>
       <ion-option>Extra Cheese</ion-option>
@@ -56,6 +56,6 @@
   </ion-item>
 
   <ion-item>
-    <button ion-button full (click)="forgetPassword()">Criar Evento</button>
+    <button ion-button full (click)="createEvent()">Criar Evento</button>
   </ion-item>
 </ion-content>

@@ -34,7 +34,15 @@ export class HomePage {
   ) {
     this.platform.ready().then(() =>{
       this.events = _afDb.getEvents();
+
       this.loadMap();
+
+      //Create event marker for each event that will be showing through Firebase events listener
+      this.events.subscribe((events) => {
+        events.forEach((event) => {
+          this.createEventMarker(events);
+        });
+      });
     });
   }
 
@@ -62,6 +70,18 @@ export class HomePage {
         zoom: 16
       });
     });
+  }
+
+  createEventMarker(event) {
+    //TODO implement event marker creation
+    if(!this.hasEvent(event)){
+      console.log('event :: ', event);
+    }
+  }
+
+  hasEvent(event): boolean{
+    //TODO validate if event already exists on map
+    return false;
   }
 
   togglePage(){

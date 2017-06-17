@@ -21,9 +21,13 @@ export class CreateEventPage {
   event = {
     name: '',
     description: '',
-    epoch: '',
+    epoch: 0,
     latlng: '',
-    address: ''
+    address: '',
+    type: ''
+  };
+  date: any;
+  time: any;
   imgDataUrl: string;
   events: FirebaseListObservable<any[]>;
 
@@ -32,7 +36,7 @@ export class CreateEventPage {
     public navParams: NavParams,
     public camera: Camera
   ) {
-    this.event.latlng = this.navParams.get('target');
+    this.event.latlng = this.navParams.get('target').toString();
     this.events = this.navParams.get('events');
   }
 
@@ -51,6 +55,7 @@ export class CreateEventPage {
   }
 
   createEvent(){
+    this.event.epoch = new Date(this.date + ' ' + this.time).getTime();
     this.events.push(this.event);
   }
 
