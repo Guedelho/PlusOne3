@@ -34,6 +34,8 @@ npm -s install firebase angularfire2 --save && echo -e "${GRAY}firebase angularf
 echo -e "${WHITE}Preparing Ionic Dependencies..."
 ionic cordova plugin add cordova-plugin-geolocation && echo -e "${GRAY}cordova-plugin-geolocation install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-geolocation install :: ${RED}ERROR"
 ionic cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyBOGNRuFCms9jnNvM9QoIlKpn21gVta8fs" && echo -e "${GRAY}cordova-plugin-googlemaps install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-googlemaps install :: ${RED}ERROR"
+ionic cordova plugin add cordova-plugin-compat@1.1.0 && echo -e "${GRAY}cordova-plugin-compat install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-compat install :: ${RED}ERROR"
+ionic cordova plugin add cordova-plugin-camera && echo -e "${GRAY}cordova-plugin-camera install :: ${GREEN}OK" || echo -e "${GRAY}cordova-plugin-camera install :: ${RED}ERROR"
 
 #End
 echo -e "${WHITE}We are done here!"

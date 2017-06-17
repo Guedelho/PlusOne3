@@ -2,7 +2,7 @@ import { DatabaseProvider } from './../../providers/firebase/database';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
-import { GoogleMaps, GoogleMap, GoogleMapsEvent } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, MarkerOptions, Marker, LatLng } from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
 import { CreateEventPage } from '../create-event/create-event';
@@ -23,7 +23,8 @@ export class HomePage {
   element: HTMLElement;
   map: GoogleMap;
   isCreating: boolean = false;
-  events: FirebaseListObservable<any[]>
+  events: FirebaseListObservable<any[]>;
+  eventMarkersMap: Map<string, Object>;
 
   constructor(
     public navCtrl: NavController,
@@ -34,13 +35,14 @@ export class HomePage {
   ) {
     this.platform.ready().then(() =>{
       this.events = _afDb.getEvents();
+      this.eventMarkersMap = new Map();
 
       this.loadMap();
 
       //Create event marker for each event that will be showing through Firebase events listener
       this.events.subscribe((events) => {
         events.forEach((event) => {
-          this.createEventMarker(events);
+          this.createEventMarker(event);
         });
       });
     });
@@ -73,15 +75,21 @@ export class HomePage {
   }
 
   createEventMarker(event) {
-    //TODO implement event marker creation
     if(!this.hasEvent(event)){
-      console.log('event :: ', event);
+      let arr_latlng = event.latlng.split(',');
+      let latlng = new LatLng(arr_latlng[0], arr_latlng[1]);
+      let markerOptions: MarkerOptions = {
+        position: latlng,
+        title: event.name
+      };
+      this.map.addMarker(markerOptions).then((marker: Marker) => {
+        this.eventMarkersMap.set(event.$key, marker);
+      });
     }
   }
 
   hasEvent(event): boolean{
-    //TODO validate if event already exists on map
-    return false;
+    return typeof this.eventMarkersMap.get(event.$key) != 'undefined';
   }
 
   togglePage(){
