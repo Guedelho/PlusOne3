@@ -33,8 +33,12 @@ export class HomePage {
     public googleMaps: GoogleMaps,
     private _afDb: DatabaseProvider
   ) {
+    
+  }
+
+  ionViewDidLoad() {
     this.platform.ready().then(() =>{
-      this.events = _afDb.getEvents();
+      this.events = this._afDb.getEvents();
       this.eventMarkersMap = new Map();
 
       this.loadMap();
@@ -47,6 +51,25 @@ export class HomePage {
       });
     });
   }
+
+  ionViewWillEnter() {
+    // this.map.refreshLayout();
+    // this.events = this._afDb.getEvents();
+    //   this.eventMarkersMap = new Map();
+
+    //   this.loadMap();
+
+    //   //Create event marker for each event that will be showing through Firebase events listener
+    //   this.events.subscribe((events) => {
+    //     events.forEach((event) => {
+    //       this.createEventMarker(event);
+    //     });
+    //   });
+  }
+
+  // ionViewWillLeave() {
+  //   this.map.refreshLayout();
+  // }
 
   loadMap() {
     this.element = document.getElementById('map');
