@@ -36,6 +36,7 @@ export class HomePage {
     
   }
 
+  //Map should be load here because this method run only once as long as page is instanced and cached.
   ionViewDidLoad() {
     this.platform.ready().then(() =>{
       this.events = this._afDb.getEvents();
@@ -51,25 +52,6 @@ export class HomePage {
       });
     });
   }
-
-  ionViewWillEnter() {
-    // this.map.refreshLayout();
-    // this.events = this._afDb.getEvents();
-    //   this.eventMarkersMap = new Map();
-
-    //   this.loadMap();
-
-    //   //Create event marker for each event that will be showing through Firebase events listener
-    //   this.events.subscribe((events) => {
-    //     events.forEach((event) => {
-    //       this.createEventMarker(event);
-    //     });
-    //   });
-  }
-
-  // ionViewWillLeave() {
-  //   this.map.refreshLayout();
-  // }
 
   loadMap() {
     this.element = document.getElementById('map');
