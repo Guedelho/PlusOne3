@@ -4,7 +4,7 @@
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <access origin="*" />
-    <content original-src="index.html" src="http://192.168.1.105:8100" />
+    <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -78,6 +78,7 @@
     </platform>
     <allow-navigation href="http://192.168.43.222:8100" />
     <allow-navigation href="http://192.168.1.105:8100" />
+    <allow-navigation href="http://192.168.1.103:8100" />
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-compat" spec="^1.1.0" />

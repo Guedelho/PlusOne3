@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/firebase/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -24,7 +25,8 @@ export class CreateEventPage {
     epoch: 0,
     latlng: '',
     address: '',
-    type: ''
+    type: '',
+    owner: ''
   };
   date: any;
   time: any;
@@ -34,10 +36,12 @@ export class CreateEventPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public camera: Camera
+    public camera: Camera,
+    private _afAuth: AuthProvider
   ) {
     this.event.latlng = this.navParams.get('target').toString();
     this.events = this.navParams.get('events');
+    this.event.owner = _afAuth.userId;
   }
 
   getImage(){
