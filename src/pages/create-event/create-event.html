@@ -5,18 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Criar Evento</ion-title>
-    <button ion-button menuToggle id="btn-menu">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-  </ion-toolbar>
+  <ion-navbar>
+      <ion-title>Criar Evento</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-item>
-    <img [src]="imgDataUrl" *ngIf="imgDataUrl"/>
-    <button (click)="getImage()">Take photo</button>
+    <img [src]="event.imgDataUrl" *ngIf="event.imgDataUrl"/>
+    <button ion-button full (click)="getImage()" color="primary">Foto do Evento</button>
   </ion-item>
   <ion-item>
     <ion-label floating>Nome</ion-label>
@@ -30,12 +27,12 @@
 
   <ion-item>
     <ion-label floating>Data</ion-label>
-    <ion-datetime [(ngModel)]="date" displayFormat="DD MM YYYY"></ion-datetime>
+    <ion-datetime [(ngModel)]="event.date" displayFormat="DD/MM/YYYY"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label floating>Hora</ion-label>
-    <ion-datetime [(ngModel)]="time" displayFormat="HH mm"></ion-datetime>
+    <ion-datetime [(ngModel)]="event.time" displayFormat="HH:mm"></ion-datetime>
   </ion-item>
 
   <ion-item>

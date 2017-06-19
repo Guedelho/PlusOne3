@@ -13,7 +13,6 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 @Injectable()
 export class DatabaseProvider {
   private events: FirebaseListObservable<any[]>
-  afDb: AngularFireDatabase;
 
   constructor(afDb: AngularFireDatabase) {
    this.events = afDb.list('/events');

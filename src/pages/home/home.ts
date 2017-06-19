@@ -1,11 +1,13 @@
 import { DatabaseProvider } from './../../providers/firebase/database';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, MarkerOptions, Marker, LatLng } from '@ionic-native/google-maps';
 
 import { SearchEventPage } from '../search-event/search-event';
 import { CreateEventPage } from '../create-event/create-event';
+import { EventDetailsPage } from '../event-details/event-details';
+
 import { FirebaseListObservable } from "angularfire2/database";
 /**
  * Generated class for the HomePage page.
@@ -22,35 +24,28 @@ export class HomePage {
 
   element: HTMLElement;
   map: GoogleMap;
-  isCreating: boolean = false;
+  isCreating: boolean;
   events: FirebaseListObservable<any[]>;
   eventMarkersMap: Map<string, Object>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public platform: Platform,
     public googleMaps: GoogleMaps,
     private _afDb: DatabaseProvider
   ) {
-    
+    this.events = this._afDb.getEvents();
+
+    this.events.subscribe((events) => {
+      events.forEach((event) => {
+        this.createEventMarker(event);
+      });
+    });
   }
 
   //Map should be load here because this method run only once as long as page is instanced and cached.
   ionViewDidLoad() {
-    this.platform.ready().then(() =>{
-      this.events = this._afDb.getEvents();
-      this.eventMarkersMap = new Map();
-
-      this.loadMap();
-
-      //Create event marker for each event that will be showing through Firebase events listener
-      this.events.subscribe((events) => {
-        events.forEach((event) => {
-          this.createEventMarker(event);
-        });
-      });
-    });
+    this.loadMap();
   }
 
   loadMap() {
@@ -80,21 +75,19 @@ export class HomePage {
   }
 
   createEventMarker(event) {
-    if(!this.hasEvent(event)){
-      let arr_latlng = event.latlng.split(',');
-      let latlng = new LatLng(arr_latlng[0], arr_latlng[1]);
-      let markerOptions: MarkerOptions = {
-        position: latlng,
-        title: event.name
-      };
-      this.map.addMarker(markerOptions).then((marker: Marker) => {
-        this.eventMarkersMap.set(event.$key, marker);
-      });
-    }
-  }
-
-  hasEvent(event): boolean{
-    return typeof this.eventMarkersMap.get(event.$key) != 'undefined';
+    this.eventMarkersMap = new Map();
+    let arr_latlng = event.latlng.split(',');
+    let latlng = new LatLng(arr_latlng[0], arr_latlng[1]);
+    let markerOptions: MarkerOptions = {
+      position: latlng,
+      title: event.name + " - " + event.type,
+      infoClick: () => {
+        this.navCtrl.push(EventDetailsPage, {event: event});
+      }
+    };
+    this.map.addMarker(markerOptions).then((marker: Marker) => {
+      this.eventMarkersMap.set(event.$key, marker);
+    });
   }
 
   togglePage(){
@@ -103,7 +96,7 @@ export class HomePage {
 
   createEvent(){
     this.map.getCameraPosition().then((data) => {
-      this.togglePage();  
+      this.togglePage();
       this.navCtrl.push(CreateEventPage, {target: data.target, events: this.events});
     });
   }

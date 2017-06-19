@@ -9,23 +9,19 @@
     <div [hidden]="!isCreating">
       <ion-navbar>
         <ion-buttons left>
-          <button ion-button large (click)="togglePage()"><ion-icon name="arrow-back"></ion-icon></button>
+          <button ion-button (click)="togglePage()"><ion-icon class="arrow" name="arrow-back"></ion-icon></button>
         </ion-buttons>
         <ion-title>Local do evento</ion-title>
       </ion-navbar>
     </div>
 
     <button [hidden]="!isCreating" class="pin" ion-button icon-only clear>
-      <ion-icon name="pin"></ion-icon>
+      <ion-icon class="icon-pin" name="pin"></ion-icon>
     </button>
 
     <ion-fab [hidden]="!isCreating" bottom center>
       <button ion-fab (click)="createEvent()"><ion-icon name="checkmark"></ion-icon></button>
     </ion-fab>
-
-    <button [hidden]="isCreating" ion-button menuToggle id="btn-menu" clear color="dark">
-      <ion-icon name="menu"></ion-icon>
-    </button>
 
     <ion-fab [hidden]="isCreating" bottom center>
       <button ion-fab (click)="togglePage()"><ion-icon name="add"></ion-icon></button>

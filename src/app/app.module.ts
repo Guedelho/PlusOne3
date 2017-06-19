@@ -21,6 +21,7 @@ import { AlertUtil } from '../util/alert-util';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Camera } from '@ionic-native/camera';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -74,6 +75,7 @@ const FIREBASECONFIG = {
     DatabaseProvider,
     GoogleMaps,
     Camera,
+    NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

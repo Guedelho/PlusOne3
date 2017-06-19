@@ -16,10 +16,17 @@ export class AlertUtil {
   showAlertWithObject(message: Object){
     let alert = this.alertCtrl.create(message);
     alert.present();
+    return alert;
   }
 
   private messageToAlert(message: string){
     switch(message){
+      case 'create-event/error':
+        return {
+          title: 'Erro ao criar evento!',
+          subTitle: 'Por favor, preencha todos os campos.',          
+          buttons: ['OK']
+        }
       case 'auth/network-request-failed':
         return {
           title: 'Erro de conexão!',

@@ -58,7 +58,18 @@ page-home {
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-left: -20px;
-        margin-top: -18px;
+        width: 50px;
+        height: 50px;
+        margin-left: -25px;
+        margin-top: -25px;
+    }
+    .icon-pin{
+        width: 50px;
+        height: 50px;
+        font-size: 3rem;
+        line-height: normal;
+    }
+    .arrow{
+        font-size: 2rem;
     }
 }

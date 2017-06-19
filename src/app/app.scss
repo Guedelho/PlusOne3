@@ -21,3 +21,11 @@
 .scroll-content{
   padding-bottom: 0 !important;
 }
+
+.toolbar-content{
+  position: absolute;
+  text-align: center;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
